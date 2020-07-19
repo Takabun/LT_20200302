@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+    li {
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Layout Thrashing</h1>
+    <ul>
+      <li><a href="./scrolling-layout-thrashing/before.html">before</a></li>
+      <li><a href="./scrolling-layout-thrashing/after.html">after</a></li>
+    </ul>
+
+    <h1>Expensive styles</h1>
+    <ul>
+      <li><a href="./evaluate-expensive-styles/before.html">描画コスト・低</a></li>
+      <li><a href="./evaluate-expensive-styles/after.html">描画コスト・高</a></li>
+    </ul>
+
+    <h1> javascript処理のWorkerスレッドへの移譲</h1>
+    <ul>
+      <li><a href="./fibonacchi/before.html">before</a></li>
+      <li><a href="./fibonacchi/after.html">after</a></li>
+    </ul>
+    
+  </body>
+  <!-- async読み込み -->
+  <script async src="index.js"></script>
+  <!-- defer読み込み -->
+  <script defer src="index.js"></script>
+</html>
+
+
+<script>
+
+function startAnimation(){
+  let start= performance.now();
+  let element = document.getElementById('animation-target');
+  let step = function(time) {
+    //開始から2秒たってない場合処理を継続する
+    if(time - start < 2000) {
+      requestAnimationFrame(step);
+      //任意のアニメーション処理を行う
+      element.style.transform = aaa;
+    }
+  };
+  requestAnimationFrame(step);
+}
+
+</script>
